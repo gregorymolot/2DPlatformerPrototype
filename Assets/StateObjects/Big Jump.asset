@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da64274fe17ce9c4fb0a2fcddf6b4e0c, type: 3}
-  m_Name: BabyJump
+  m_Name: Big Jump
   m_EditorClassIdentifier: Assembly-CSharp::BasicJumpState
-  cost: 3
+  cost: 2
   unlocked: 1
   icon: {fileID: 0}
-  jumpPower: 5
-  timeToMaxJumpGravity: 0.01
+  jumpPower: 25
+  timeToMaxJumpGravity: 1
   maxJumpGravity: 25
   maxMoveSpeedAir: 10
   maxAccelerationRateAir: 35

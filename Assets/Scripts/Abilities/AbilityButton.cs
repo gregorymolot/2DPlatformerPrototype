@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,8 @@ public class AbilityButton : MonoBehaviour
     Button button;
     [SerializeField]
     Image icon;
+    [SerializeField]
+    TextMeshProUGUI text;
     BaseStateAbility ability;
     [SerializeField]
     AbilityState abilityState = AbilityState.Locked;
@@ -94,6 +97,7 @@ public class AbilityButton : MonoBehaviour
     public void Init(BaseStateAbility baseAbility)
     {
         ability = baseAbility;
+        text.text = baseAbility.name + "\n Cost: " + baseAbility.cost;
         CheckAvilability();
     }
 

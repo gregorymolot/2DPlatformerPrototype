@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,8 @@ public class AbilityManager : MonoBehaviour
 
     [SerializeField]
     Player player;
+    [SerializeField]
+    TextMeshProUGUI text;
 
     public static AbilityManager Instance
     {
@@ -81,6 +84,8 @@ public class AbilityManager : MonoBehaviour
         Equip(defaultWalk);
         Equip(defaultJump);
         Equip(defaultIdle);
+
+        text.text = "Slots: " + availableSlots;
     }
 
     void Update()
@@ -89,25 +94,26 @@ public class AbilityManager : MonoBehaviour
 
     public void Equip(BaseStateAbility ability)
     {
-        player.Equip(ability);
         switch(ability.state)
         {
             case MoveState.Jump:
-                if (currentlyEquippedJump != null)
+            if (currentlyEquippedJump != ability && currentlyEquippedJump != null)
                 {
-                    currentSlots-=currentlyEquippedJump.cost;
+                    Unequip(currentlyEquippedJump);
                 }
                 currentlyEquippedJump = (BaseJumpAbility)ability;
                 break;
             case MoveState.Walk:
-                if (currentlyEquippedWalk != null)
+                if (currentlyEquippedWalk != ability && currentlyEquippedWalk != null)
                 {
-                    currentSlots-=currentlyEquippedWalk.cost;
+                    Unequip(currentlyEquippedWalk);
                 }
                 currentlyEquippedWalk = (BaseMoveAbility)ability;
                 break;
         }
         currentSlots += ability.cost;
+        text.text = "Slots: " + availableSlots;
+        player.Equip(ability);
     }
 
     public void Unequip(BaseStateAbility ability)
@@ -117,10 +123,13 @@ public class AbilityManager : MonoBehaviour
         {
             case MoveState.Jump:
             player.Equip(defaultJump);
+            currentlyEquippedJump = defaultJump;
             break;
             case MoveState.Walk:
             player.Equip(defaultWalk);
+            currentlyEquippedWalk = defaultWalk;
             break;
         }
+        text.text = "Slots: " + availableSlots;
     }
 }
